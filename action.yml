@@ -1,6 +1,12 @@
 name: 'MathDown (legacy)'
 description: 'Markdown to HTML on steroids'
 inputs:
+  toc:
+    description: 'enable table of contents'
+    default: 'true'
+  pagetitle:
+    description: 'set page title'
+    default: ''
   input:
     description: 'input file path'
     required: true
@@ -11,6 +17,10 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - '-t'
+    - ${{ inputs.toc }}
+    - '-p'
+    - ${{ inputs.pagetitle }}
     - '-i'
     - ${{ inputs.input }}
     - '-o'

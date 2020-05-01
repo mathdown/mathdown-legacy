@@ -16,9 +16,10 @@ while [ -n "${1+x}" ]; do
 			echo "Flags:"
 			echo "	 -h: print help message"
 			echo "	 -v: enable verbose mode"
-			echo "	 -t: include table of contents"
+			echo "	 -t bool: include table of contents"
 			echo "	 -i path: path to input file"
 			echo "	 -o path: path to output file"
+			echo "   -p title: page title"
 			echo
 			exit 0
 			;;
@@ -27,7 +28,15 @@ while [ -n "${1+x}" ]; do
 			set -x
 			;;
 		-t|-toc)
-			toc=--table-of-contents
+			shift
+			if [ -z "${1+x}" ]; then
+				echo "Expected flag argument" >&2
+			fi
+			if [ "$1" = true ]; then
+				toc=--table-of-contents
+			else
+				toc=
+			fi
 			shift
 			;;
 		-i|-input)
@@ -46,8 +55,19 @@ while [ -n "${1+x}" ]; do
 			output="$1"
 			shift
 			;;
+		-p|-pagetitle)
+			shift
+			if [ -z "${1+x}" ]; then
+				echo "Expected page title" >&2
+			fi
+			pagetitle=--variable=pagetitle:"$1"
+			shift
+			;;
+		--)
+			shift
+			break;
+			;;
 		-*)
-			# Quote flag.
 			flag=`quote "$1"`
 			echo "Unknown option $flag" >&2
 			exit 1
@@ -69,5 +89,11 @@ if [ -z "${input+x}" -o -z "${output+x}" ]; then
 	exit 1
 fi
 
-pandoc ${toc-} --mathjax --template="$root"/template.htm --output="$output" -- "$input"
+if [ -n "${toc-}" ]; then
+	set -- "${toc}" "$@"
+fi
+if [ -n "${pagetitle-}" ]; then
+	set -- "${pagetitle}" "$@"
+fi
+pandoc "$@" --mathjax --template="$root"/template.htm --output="$output" -- "$input"
 node "$root"/build.js "$output"
