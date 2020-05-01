@@ -1,0 +1,17 @@
+name: 'MathDown (legacy)'
+description: 'Markdown to HTML on steroids'
+inputs:
+  input:
+    description: 'input file path'
+    required: true
+  output:
+    description: 'output file path'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - '-i'
+    - ${{ inputs.input }}
+    - '-o'
+    - ${{ inputs.output }}

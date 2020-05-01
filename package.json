@@ -1,0 +1,14 @@
+{
+  "name": "@mathdown/mathdown-legacy",
+  "version": "0.0.1",
+  "license": "Unlicense",
+  "author": "Ivan Trubach <mr.trubach@icloud.com>",
+  "dependencies": {
+    "d3": "^3.5.17",
+    "function-plot": "^1.18.1",
+    "js-yaml": "^3.12.0",
+    "jsdom": "^13.0.0",
+    "jsdom-global": "^3.0.2",
+    "mathjax-node-page": "^3.0.1"
+  }
+}
