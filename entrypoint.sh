@@ -60,7 +60,11 @@ while [ -n "${1+x}" ]; do
 			if [ -z "${1+x}" ]; then
 				echo "Expected page title" >&2
 			fi
-			pagetitle=--variable=pagetitle:"$1"
+			if [ -n "$1" ]; then
+				pagetitle=--variable=pagetitle:"$1"
+			else
+				pagetitle=
+			fi
 			shift
 			;;
 		--)
