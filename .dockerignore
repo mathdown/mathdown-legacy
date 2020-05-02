@@ -1,6 +1,4 @@
 **
-!/.git/HEAD
-!/.git/refs
 !/build.js
 !/entrypoint.sh
 !/package-lock.json

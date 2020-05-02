@@ -1,7 +1,6 @@
 #!/bin/sh -eu
 
 root="${root-.}"
-ref="${ref-master}"
 
 quote() {
 	printf %s\\n "$1" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/'/"
@@ -21,7 +20,6 @@ while [ -n "${1+x}" ]; do
 			echo "	 -i path: path to input file"
 			echo "	 -o path: path to output file"
 			echo "   -p title: page title"
-			echo "   -r ref: git ref for assets"
 			echo
 			exit 0
 			;;
@@ -69,16 +67,6 @@ while [ -n "${1+x}" ]; do
 			fi
 			shift
 			;;
-		-r|-ref)
-			shift
-			if [ -z "${1+x}" ]; then
-				echo "Expected git ref" >&2
-			fi
-			if [ -n "$1" ]; then
-				ref="$1"
-			fi
-			shift
-			;;
 		--)
 			shift
 			break;
@@ -111,5 +99,5 @@ fi
 if [ -n "${pagetitle-}" ]; then
 	set -- "${pagetitle}" "$@"
 fi
-pandoc "$@" --variable=gitref:"$ref" --mathjax --template="$root"/template.htm --output="$output" -- "$input"
+pandoc "$@" --mathjax --template="$root"/template.htm --output="$output" -- "$input"
 node "$root"/build.js "$output"
