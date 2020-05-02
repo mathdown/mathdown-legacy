@@ -13,6 +13,9 @@ inputs:
   output:
     description: 'output file path'
     required: true
+  ref:
+    description: 'assets git ref'
+    default: ''
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -25,3 +28,5 @@ runs:
     - ${{ inputs.input }}
     - '-o'
     - ${{ inputs.output }}
+    - '-r'
+    - ${{ inputs.ref }}
