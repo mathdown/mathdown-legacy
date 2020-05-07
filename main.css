@@ -1,6 +1,6 @@
 :root
 { font-size: 1.2rem
-; font-family: "Computer Modern Serif"
+; font-family: "Computer Modern Serif", serif
 ; margin: 0 auto
 ; width: 7in
 }
@@ -61,4 +61,8 @@ p
 ; hyphens: auto
 ; -webkit-hyphens: auto
 ; -ms-hyphens: auto
+}
+
+tt, code, kbd, samp
+{ font-family: "Computer Modern Typewriter", monospace
 }
